@@ -21,7 +21,7 @@ public class RequisicaoService {
 	// Inserir
 	public void criar(Requisicao requisicao) {
 
-		requisicao.setId_requisicao(new Long(0));
+		requisicao.setId(new Long(0));
 		_repository.save(requisicao);
 	}
 
@@ -40,7 +40,7 @@ public class RequisicaoService {
 	// Atualizar dados
 	public void atualizar(Requisicao requisicao, Long id) {
 
-		requisicao.setId_requisicao(id);
+		requisicao.setId(id);
 		_repository.save(requisicao);
 	}
 

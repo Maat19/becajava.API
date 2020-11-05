@@ -21,7 +21,7 @@ public class LivroService {
 	// Inserir
 	public void criar(Livro livro) {
 
-		livro.setId_livro(new Long(0));
+		livro.setId(new Long(0));
 		_repository.save(livro);
 	}
 
@@ -40,7 +40,7 @@ public class LivroService {
 	// Atualizar dados
 	public void atualizar(Livro livro, Long id) {
 
-		livro.setId_livro(id);
+		livro.setId(id);
 		_repository.save(livro);
 	}
 

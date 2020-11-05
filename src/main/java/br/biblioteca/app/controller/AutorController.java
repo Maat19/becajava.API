@@ -39,25 +39,43 @@ public class AutorController {
 
 	@GetMapping
 	public ResponseEntity listar() {
-		Iterable<Autor> Autores = _service.listar();
-		return ResponseEntity.status(HttpStatus.OK).body(Autores);
+		try {
+			Iterable<Autor> Autores = _service.listar();
+			return ResponseEntity.status(HttpStatus.OK).body(Autores);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
 	}
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity listar(@PathVariable Long id) {
-		Optional<Autor> Autor = _service.listar(id);
-		return ResponseEntity.status(HttpStatus.OK).body(Autor);
+
+		try {
+			Optional<Autor> Autor = _service.listar(id);
+			return ResponseEntity.status(HttpStatus.OK).body(Autor);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
 	}
 
 	@PutMapping(path = "/{id}")
 	public ResponseEntity atualizar(@RequestBody Autor autor, @PathVariable Long id) {
-		_service.atualizar(autor, id);
-		return ResponseEntity.status(HttpStatus.OK).body("Autor atualizado com sucesso!");
+
+		try {
+			_service.atualizar(autor, id);
+			return ResponseEntity.status(HttpStatus.OK).body("Autor atualizado com sucesso!");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
 	}
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity deletar(@PathVariable Long id) {
-		_service.deletar(id);
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		try {
+			_service.deletar(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
 	}
 }

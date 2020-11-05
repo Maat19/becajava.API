@@ -22,7 +22,7 @@ public class AlunoService {
 	// Inserir
 	public void criar(Aluno aluno) {
 
-		aluno.setId_aluno(new Long(0));
+		aluno.setId(new Long(0));
 		_repository.save(aluno);
 	}
 
@@ -41,7 +41,7 @@ public class AlunoService {
 	public void atualizar(Aluno aluno, Long id) {
 		
 		
-		aluno.setId_aluno(id);
+		aluno.setId(id);
 		_repository.save(aluno);
 	}
 		//Deletar Dados

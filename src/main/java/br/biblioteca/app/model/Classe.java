@@ -6,12 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Categoria {
-
+public class Classe {
+	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	public Long Id;
 	public String Nome;
+	
+	
+	
 	public Long getId() {
 		return Id;
 	}
@@ -24,7 +27,10 @@ public class Categoria {
 	public void setNome(String nome) {
 		Nome = nome;
 	}
+	
+	
+	
+	
+	
+	
 }
-
-
-

@@ -21,45 +21,63 @@ import br.biblioteca.app.service.AlunoService;
 public class AlunoController {
 
 	private final AlunoService _service;
-	
+
 	public AlunoController(AlunoService service) {
 		_service = service;
 	}
-	
+
 	@PostMapping
-    public ResponseEntity criar(@RequestBody Aluno aluno) {
-		
+	public ResponseEntity criar(@RequestBody Aluno aluno) {
+
 		try {
-		_service.criar(aluno);
-		return ResponseEntity.status(HttpStatus.CREATED).body("Aluno inserido com sucesso!");
-    }catch (Exception  e) {
-    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
-    }
+			_service.criar(aluno);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Aluno inserido com sucesso!");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
 		}
-	
-	
+	}
+
 	@GetMapping
-    public ResponseEntity listar() {		
-		Iterable<Aluno> alunos = _service.listar();  		
-    	return ResponseEntity.status(HttpStatus.OK).body(alunos);
-    }
-	
+	public ResponseEntity listar() {
+		try {
+			Iterable<Aluno> alunos = _service.listar();
+			return ResponseEntity.status(HttpStatus.OK).body(alunos);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
+	}
+
 	@GetMapping(path = "/{id}")
 	public ResponseEntity listar(@PathVariable Long id) {
-		Optional<Aluno> aluno = _service.listar(id);
-	    return ResponseEntity.status(HttpStatus.OK).body(aluno);
+
+		try {
+			Optional<Aluno> aluno = _service.listar(id);
+			return ResponseEntity.status(HttpStatus.OK).body(aluno);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
 	}
-	
+
 	@PutMapping(path = "/{id}")
-    public ResponseEntity atualizar(@RequestBody Aluno aluno, @PathVariable Long id) {
-		_service.atualizar(aluno,id);		
-        return ResponseEntity.status(HttpStatus.OK).body("Aluno atualizado com sucesso!");
-    }
-	
-	@DeleteMapping (path = "/{id}")
- 	public ResponseEntity deletar (@PathVariable Long id) {
-	 _service.deletar(id);
-	 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
- }
-	
+	public ResponseEntity atualizar(@RequestBody Aluno aluno, @PathVariable Long id) {
+
+		try {
+			_service.atualizar(aluno, id);
+			return ResponseEntity.status(HttpStatus.OK).body("Aluno atualizado com sucesso!");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
+	}
+
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity deletar(@PathVariable Long id) {
+
+		try {
+			_service.deletar(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
+	}
+
 }

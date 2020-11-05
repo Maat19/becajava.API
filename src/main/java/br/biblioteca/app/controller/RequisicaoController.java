@@ -20,45 +20,62 @@ import br.biblioteca.app.service.RequisicaoService;
 @RequestMapping("/requisicoes")
 public class RequisicaoController {
 
-	
-private final RequisicaoService _service;
-	
+	private final RequisicaoService _service;
+
 	public RequisicaoController(RequisicaoService service) {
 		_service = service;
 	}
-	
+
 	@PostMapping
-    public ResponseEntity criar(@RequestBody Requisicao requisicao) {
+	public ResponseEntity criar(@RequestBody Requisicao requisicao) {
 		try {
-		_service.criar(requisicao);
-		return ResponseEntity.status(HttpStatus.CREATED).body("Requisicao inserida com sucesso!");
-		}catch (Exception e) {
+			_service.criar(requisicao);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Requisicao inserida com sucesso!");
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
 		}
-		
-    }
-	
+
+	}
+
 	@GetMapping
-    public ResponseEntity listar() {		
-		Iterable<Requisicao> requisicoes = _service.listar();  		
-    	return ResponseEntity.status(HttpStatus.OK).body(requisicoes);
-    }
-	
+	public ResponseEntity listar() {
+
+		try {
+			Iterable<Requisicao> requisicoes = _service.listar();
+			return ResponseEntity.status(HttpStatus.OK).body(requisicoes);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
+	}
+
 	@GetMapping(path = "/{id}")
 	public ResponseEntity listar(@PathVariable Long id) {
-		Optional<Requisicao> requisicao = _service.listar(id);
-	    return ResponseEntity.status(HttpStatus.OK).body(requisicao);
+		try {
+			Optional<Requisicao> requisicao = _service.listar(id);
+			return ResponseEntity.status(HttpStatus.OK).body(requisicao);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
 	}
-	
+
 	@PutMapping(path = "/{id}")
-    public ResponseEntity atualizar(@RequestBody Requisicao requisicao, @PathVariable Long id) {
-		_service.atualizar(requisicao,id);		
-        return ResponseEntity.status(HttpStatus.OK).body("Requisicao atualizada com sucesso!");
-    }
-	
-	@DeleteMapping (path = "/{id}")
- 	public ResponseEntity deletar (@PathVariable Long id) {
-	 _service.deletar(id);
-	 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
- }
+	public ResponseEntity atualizar(@RequestBody Requisicao requisicao, @PathVariable Long id) {
+
+		try {
+			_service.atualizar(requisicao, id);
+			return ResponseEntity.status(HttpStatus.OK).body("Requisicao atualizada com sucesso!");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
+	}
+
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity deletar(@PathVariable Long id) {
+		try {
+			_service.deletar(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
+		}
+	}
 }

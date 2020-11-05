@@ -13,36 +13,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.biblioteca.app.model.Categoria;
-import br.biblioteca.app.service.CategoriaService;
+import br.biblioteca.app.model.Classe;
+import br.biblioteca.app.service.ClasseService;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaController {
+@RequestMapping("/classes")
+public class ClasseController {
 
-	private final CategoriaService _service;
+	private final ClasseService _service;
 
-	public CategoriaController(CategoriaService service) {
+	public ClasseController(ClasseService service) {
 		_service = service;
 	}
 
 	@PostMapping
-	public ResponseEntity criar(@RequestBody Categoria categoria) {
+	public ResponseEntity criar(@RequestBody Classe classe) {
+
 		try {
-			_service.criar(categoria);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Categoria inserido com sucesso!");
+			_service.criar(classe);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Classe inserida com sucesso!");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
 		}
-
 	}
 
 	@GetMapping
 	public ResponseEntity listar() {
-
 		try {
-			Iterable<Categoria> categorias = _service.listar();
-			return ResponseEntity.status(HttpStatus.OK).body(categorias);
+			Iterable<Classe> classes = _service.listar();
+			return ResponseEntity.status(HttpStatus.OK).body(classes);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
 		}
@@ -52,18 +51,18 @@ public class CategoriaController {
 	public ResponseEntity listar(@PathVariable Long id) {
 
 		try {
-			Optional<Categoria> categoria = _service.listar(id);
-			return ResponseEntity.status(HttpStatus.OK).body(categoria);
+			Optional<Classe> classe = _service.listar(id);
+			return ResponseEntity.status(HttpStatus.OK).body(classe);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
 		}
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity atualizar(@RequestBody Categoria categoria, @PathVariable Long id) {
+	public ResponseEntity atualizar(@RequestBody Classe Classe, @PathVariable Long id) {
 		try {
-			_service.atualizar(categoria, id);
-			return ResponseEntity.status(HttpStatus.OK).body("Categoria atualizado com sucesso!");
+			_service.atualizar(Classe, id);
+			return ResponseEntity.status(HttpStatus.OK).body("Classe atualizada com sucesso!");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
 		}
@@ -71,7 +70,6 @@ public class CategoriaController {
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity deletar(@PathVariable Long id) {
-
 		try {
 			_service.deletar(id);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -79,5 +77,4 @@ public class CategoriaController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dados não foram inseridos");
 		}
 	}
-
 }
