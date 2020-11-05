@@ -3,9 +3,12 @@ package br.biblioteca.app.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import br.biblioteca.app.model.Livro;
 import br.biblioteca.app.repository.LivroRepository;
 
+@Service
 public class LivroService {
 
 	final LivroRepository _repository;

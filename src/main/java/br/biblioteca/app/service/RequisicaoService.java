@@ -3,9 +3,12 @@ package br.biblioteca.app.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import br.biblioteca.app.model.Requisicao;
 import br.biblioteca.app.repository.RequisicaoRepository;
 
+@Service
 public class RequisicaoService {
 
 	final RequisicaoRepository _repository;
